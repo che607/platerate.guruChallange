@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Coding Challange</title>
+    <link rel="stylesheet" type="text/css" href="stylesheet.css">
+  </head>
+  <body>
+    <ol>
+      <% for (var x in posts) { %>
+        <li class="title"><%= posts[x].title %></li>
+        <p class="body"><%= posts[x].body %></p>
+      <% } %>
+    </ol>
+  </body>
+</html>
