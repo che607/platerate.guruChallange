@@ -86,6 +86,13 @@ app.get('/aboutMe/:info', function(request, response) {
   }
 });
 
+app.get('/', function(request, response) {
+  response.render('templates/aboutMe', {aboutMe: 'error'});
+});
+
+app.get('/:info', function(request, response) {
+  response.render('templates/aboutMe', {aboutMe: 'error'});
+});
 
 app.listen(8000, function() {
   console.log("listening on port 8000");
