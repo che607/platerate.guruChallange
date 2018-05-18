@@ -1,3 +1,24 @@
+// Web Service Requirements:
+//
+// 1) Capable of responding to HTTP GET requests*.
+//
+// 2) Should have an endpoint(/posts) that dynamically makes a request to (https://jsonplaceholder.typicode.com/posts) and renders
+// an EJS view using the data returned. Only the title and body of all the posts should be displayed in an centered and ordered HTML
+// list on the DOM. The titles should have a font size of 16px and color: #3cb371. The body should have a font size of 12px color:
+// #4A4A4A.
+//
+// 3) Should have an individual endpoint(/aboutme) that respond data in JSON format for the questions below. The endpoint should
+ // respond the appropriate data based on query parameter q given from below. If no parameter is given it should return all questions
+ // and answers. The JSON response should have question and answer.
+//
+// - Parameter: description. Returns response for question: Tell me a little bit about yourself?
+// - Parameter: tech. Returns response for question: What excites you about technology?
+// - Parameter: techstack . Returns response for question: What is your preferred technology stack?
+// - Parameter: hobbies. Returns response for question: What are your favorite hobbies?
+//
+// * Any request to an endpoint that is not defined should ‘Not Found’ as plain text
+
+
 const express = require("express");
 const app = express();
 const fetch = require('node-fetch');
@@ -6,7 +27,7 @@ app.use(express.static(__dirname + '/views'));
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 
-const aboutMe = {
+let aboutMe = {
   descriptionQuestion:  "Tell me a little bit about yourself?",
   descriptionAnswer:  "My name is Che and I live in Baltimore.  I have a passion for programming languages and developing the architecture for software programs.",
   techQuestion:  "What excites you about technology?",
@@ -28,26 +49,41 @@ app.get('/posts', function(request, response) {
 });
 
 app.get('/aboutme', function(request, response) {
-  response.render('templates/aboutMe', {aboutMe: aboutMe});
-});
-
-app.get('/:info', function(request, response) {
-  response.render('templates/notFound');
+    let pageInfo = {
+      aboutMeInfo:  aboutMe,
+      params: "none"
+    }
+  response.render('templates/aboutMe', {aboutMe: pageInfo});
 });
 
 app.get('/aboutMe/:info', function(request, response) {
-  console.log("RIGHT HERE: ", request.params.info, "TYPE: ", typeof(request.params.info));
   if(request.params.info === "description"){
-      response.render('templates/description', {aboutMe: aboutMe});
+    let pageInfo = {
+      aboutMeInfo:  aboutMe,
+      params: "description"
+    }
+    response.render('templates/aboutMe', {aboutMe: pageInfo});
   } else if(request.params.info === "tech"){
-      response.render('templates/tech', {aboutMe: aboutMe});
+      let pageInfo = {
+        aboutMeInfo:  aboutMe,
+        params: "tech"
+      }
+      response.render('templates/aboutMe', {aboutMe: pageInfo});
   } else if(request.params.info === "techstack"){
-      response.render('templates/techstack', {aboutMe: aboutMe});
+      let pageInfo = {
+        aboutMeInfo:  aboutMe,
+        params: "techStack"
+      }
+      response.render('templates/aboutMe', {aboutMe: pageInfo});
   } else if(request.params.info === "hobbies"){
-      response.render('templates/hobbies', {aboutMe: aboutMe});
+      let pageInfo = {
+        aboutMeInfo:  aboutMe,
+        params: "hobbies"
+      }
+      response.render('templates/aboutMe', {aboutMe: pageInfo});
   } else {
-      response.render('templates/notFound');
-  };
+    response.render('templates/aboutMe', {aboutMe: 'error'});
+  }
 });
 
 

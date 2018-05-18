@@ -5,16 +5,32 @@
     <title>Coding Challange</title>
   </head>
   <body>
-    <h3><%= aboutMe.descriptionQuestion %></h3>
-    <p><%= aboutMe.descriptionAnswer %></p>
-    <br>
-    <h3><%= aboutMe.techQuestion %></h3>
-    <p><%= aboutMe.techAnswer %></p>
-    <br>
-    <h3><%= aboutMe.techstackQuestion %></h3>
-    <p><%= aboutMe.techstackAnswer %></p>
-    <br>
-    <h3><%= aboutMe.hobbiesQuestion %></h3>
-    <p><%= aboutMe.hobbiesAnswer %></p>
+    <% if( aboutMe.params === 'none'){ %>
+      <h3><%= aboutMe.aboutMeInfo.descriptionQuestion %></h3>
+      <p><%= aboutMe.aboutMeInfo.descriptionAnswer %></p>
+      <br>
+      <h3><%= aboutMe.aboutMeInfo.techQuestion %></h3>
+      <p><%= aboutMe.aboutMeInfo.techAnswer %></p>
+      <br>
+      <h3><%= aboutMe.aboutMeInfo.techstackQuestion %></h3>
+      <p><%= aboutMe.aboutMeInfo.techstackAnswer %></p>
+      <br>
+      <h3><%= aboutMe.aboutMeInfo.hobbiesQuestion %></h3>
+      <p><%= aboutMe.aboutMeInfo.hobbiesAnswer %></p>
+      <% } else if ( aboutMe.params === 'description'){ %>
+        <h3><%= aboutMe.aboutMeInfo.descriptionQuestion %></h3>
+        <p><%= aboutMe.aboutMeInfo.descriptionAnswer %></p>
+      <% } else if ( aboutMe.params === 'tech'){ %>
+        <h3><%= aboutMe.aboutMeInfo.techQuestion %></h3>
+        <p><%= aboutMe.aboutMeInfo.techAnswer %></p>
+      <% } else if ( aboutMe.params === 'techStack'){ %>
+        <h3><%= aboutMe.aboutMeInfo.techstackQuestion %></h3>
+        <p><%= aboutMe.aboutMeInfo.techstackAnswer %></p>
+      <% } else if ( aboutMe.params === 'hobbies'){ %>
+        <h3><%= aboutMe.aboutMeInfo.hobbiesQuestion %></h3>
+        <p><%= aboutMe.aboutMeInfo.hobbiesAnswer %></p>
+      <% } else {  %>
+        <h1>NOT FOUND</h1>
+    <% } %>
   </body>
 </html>
