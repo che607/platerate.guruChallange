@@ -27,17 +27,6 @@ app.use(express.static(__dirname + '/views'));
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 
-let aboutMe = {
-  descriptionQuestion:  "Tell me a little bit about yourself?",
-  descriptionAnswer:  "My name is Che and I live in Baltimore.  I have a passion for programming languages and developing the architecture for software programs.",
-  techQuestion:  "What excites you about technology?",
-  techAnswer:  "I love being able to construct full stack web applications out of nothing, being able to add my part to an already established code, and being able to look at someone else's code to get different perspectives towards a solution.  Everytime I develop a new skill or learn a new technology is the best feeling, I love exceling in programming languages.",
-  techstackQuestion:  "What is your preferred technology stack?",
-  techstackAnswer:  "Since I have such a love for Javascript, I would say the MEAN stack is my favorite.  I love being able to use Javascript all around the board with the MEAN stack.",
-  hobbiesQuestion:  "What are your favorite hobbies?",
-  hobbiesAnswer:  "My hobbies include reading books that promote positive changes in life.  They can be about new industry technologies, financial solutions, good health, etc."
-};
-
 app.get('/posts', function(request, response) {
   fetch('https://jsonplaceholder.typicode.com/posts')
     	.then(function(res) {
@@ -49,49 +38,53 @@ app.get('/posts', function(request, response) {
 });
 
 app.get('/aboutme', function(request, response) {
-    let pageInfo = {
-      aboutMeInfo:  aboutMe,
-      params: "none"
-    }
-  response.render('templates/aboutMe', {aboutMe: pageInfo});
+  response.json({
+    descriptionQuestion:  "Tell me a little bit about yourself?",
+    descriptionAnswer:  "My name is Che and I live in Baltimore.  I have a passion for programming languages and developing the architecture for software programs.",
+    techQuestion:  "What excites you about technology?",
+    techAnswer:  "I love being able to construct full stack web applications out of nothing, being able to add my part to an already established code, and being able to look at someone else's code to get different perspectives towards a solution.  Everytime I develop a new skill or learn a new technology is the best feeling, I love exceling in programming languages.",
+    techstackQuestion:  "What is your preferred technology stack?",
+    techstackAnswer:  "Since I have such a love for Javascript, I would say the MEAN stack is my favorite.  I love being able to use Javascript all around the board with the MEAN stack.",
+    hobbiesQuestion:  "What are your favorite hobbies?",
+    hobbiesAnswer:  "My hobbies include reading books that promote positive changes in life.  They can be about new industry technologies, financial solutions, good health, etc."
+  });
 });
 
 app.get('/aboutMe/:info', function(request, response) {
   if(request.params.info === "description"){
-    let pageInfo = {
-      aboutMeInfo:  aboutMe,
-      params: "description"
-    }
-    response.render('templates/aboutMe', {aboutMe: pageInfo});
+    response.json({
+      descriptionQuestion: "Tell me a little bit about yourself?",
+      descriptionAnswer: "My name is Che and I live in Baltimore.  I have a passion for programming languages and developing the architecture for software programs."
+    });
   } else if(request.params.info === "tech"){
-      let pageInfo = {
-        aboutMeInfo:  aboutMe,
-        params: "tech"
-      }
-      response.render('templates/aboutMe', {aboutMe: pageInfo});
+    response.json({
+      techQuestion:  "What excites you about technology?",
+      techAnswer:  "I love being able to construct full stack web applications out of nothing, being able to add my part to an already established code, and being able to look at someone else's code to get different perspectives towards a solution.  Everytime I develop a new skill or learn a new technology is the best feeling, I love exceling in programming languages."
+    });
   } else if(request.params.info === "techstack"){
-      let pageInfo = {
-        aboutMeInfo:  aboutMe,
-        params: "techStack"
-      }
-      response.render('templates/aboutMe', {aboutMe: pageInfo});
+    response.json({
+      techstackQuestion:  "What is your preferred technology stack?",
+      techstackAnswer:  "Since I have such a love for Javascript, I would say the MEAN stack is my favorite.  I love being able to use Javascript all around the board with the MEAN stack."
+    });
   } else if(request.params.info === "hobbies"){
-      let pageInfo = {
-        aboutMeInfo:  aboutMe,
-        params: "hobbies"
-      }
-      response.render('templates/aboutMe', {aboutMe: pageInfo});
+    response.json({
+      hobbiesQuestion:  "What are your favorite hobbies?",
+      hobbiesAnswer:  "My hobbies include reading books that promote positive changes in life.  They can be about new industry technologies, financial solutions, good health, etc."
+    });
   } else {
-    response.render('templates/aboutMe', {aboutMe: 'error'});
+    response.writeHead(404, {'Content-Type': 'text/plain' })
+    response.end("Not Found")
   }
 });
 
 app.get('/', function(request, response) {
-  response.render('templates/aboutMe', {aboutMe: 'error'});
+  response.writeHead(404, {'Content-Type': 'text/plain' })
+  response.end("Not Found")
 });
 
 app.get('/:info', function(request, response) {
-  response.render('templates/aboutMe', {aboutMe: 'error'});
+  response.writeHead(404, {'Content-Type': 'text/plain' })
+  response.end("Not Found")
 });
 
 app.listen(8000, function() {
